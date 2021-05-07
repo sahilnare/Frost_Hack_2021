@@ -86,7 +86,7 @@ class Signin extends Component {
   }
 }
 
-Login.propTypes = {
+Signin.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired

@@ -5,8 +5,6 @@ import { Button, TextField, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
-// import { login, facebookLogin, googleLogin } from '../../../../store/actions';
-// import { history } from '../../../../utils';
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -50,19 +48,19 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   },
   registerUrl: {
-    color: theme.palette.primary.main,
+    color: theme.palette.primary,
     fontWeight: 'bold',
     '&:hover': {
-      color: theme.palette.primary.main
+      color: theme.palette.primary
     }
   },
   fieldError: {
-    color: theme.palette.danger.main,
+    color: theme.palette.danger,
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(1)
   },
   submitError: {
-    color: theme.palette.danger.main,
+    color: theme.palette.danger,
     alignText: 'center',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2)
@@ -151,7 +149,7 @@ function LoginForm(props) {
       <Button
         className={classes.loginButton}
         color="primary"
-        onClick={() => props.login(values.username, values.password)}
+        onClick={() => console.log('Working!')}
         size="large"
         variant="contained">
         Login now
@@ -166,10 +164,5 @@ function LoginForm(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.authState.isAuthenticated,
-  user: state.authState.user
-});
-export default connect(mapStateToProps, { login, facebookLogin, googleLogin })(
-  LoginForm
-);
+
+export default LoginForm

@@ -43,11 +43,6 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <ScrollToTop />
-          {
-            commonLoading ? (
-              <CommonLoader />
-            ) : (
               <Switch>
                 <Route
                   path='/'
@@ -68,13 +63,10 @@ class App extends Component {
                   render={(props) => <NotFound {...props} />}
                 />
               </Switch>
-            )
-          }
         </BrowserRouter>
       </div>
     );
   }
 }
-
 
 export default App;

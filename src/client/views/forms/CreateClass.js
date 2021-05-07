@@ -7,22 +7,68 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   container: {
-    maxWidth: 600,
-    flexGrow: 1,
+    maxWidth: 1000,
     textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '20px 0px 30px'
   },
   bottomMargin: {
     marginBottom: theme.spacing(2)
+  },
+  form: {
+    marginBottom: '25px',
+    padding: '0 30px'
   }
 });
 
 class InstructionDialog extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  handleChange = (e) => {
+    e.preventDefault();
+    const { value, name } = e.target;
+    switch(name) {
+        case "name":
+        {
+          this.setState({name: value});
+          break;
+        }
+        case "description":
+        {
+          this.setState({description: value});
+          break;
+        }
+        case "semester":
+        {
+          this.setState({semester: value});
+          break;
+        }
+        case "meetlink":
+        {
+          this.setState({meetlink: value});
+          break;
+        }
+        default:
+          break;
+    }
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+  }
+
   render() {
     const { classes, open, onClose } = this.props;
     return (
@@ -33,23 +79,38 @@ class InstructionDialog extends Component {
         aria-describedby="alert-dialog-description"
         scroll='body'
       >
-        <DialogTitle id="alert-dialog-title"></DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
             <div className={classes.container}>
-              <div className={classes.bottomMargin}>
-                <Typography variant="body2" gutterBottom>
-                  This is a sample introduction
-                </Typography>
-              </div>
-              <Button component={Link} to='/dashboard' className={classes.bottomMargin} variant='contained' onClick={this.handleClose} color="primary" autoFocus>
-                Getting started
-              </Button>
-              <Button component={Link} to='/dashboard' variant='outlined' onClick={this.handleClose} color="primary" autoFocus>
-                Dashboard
+              <form className={classes.form} noValidate autoComplete="off">
+                <TextField id="name"
+                 onChange={this.handleChange}
+                 name="name"
+                 label="Name"
+                 fullWidth
+                 value={this.state.name} />
+                <TextField id="description"
+                 onChange={this.handleChange}
+                 name="description"
+                 label="Description"
+                 fullWidth
+                 value={this.state.description} />
+                <TextField id="semester"
+                 onChange={this.handleChange}
+                 name="semester"
+                 label="Semester"
+                 fullWidth
+                 value={this.state.semester} />
+                <TextField id="meetlink"
+                 onChange={this.handleChange}
+                 name="meetlink"
+                 label="Meet Link"
+                 fullWidth
+                 value={this.state.meetlink} />
+              </form>
+              <Button className={classes.saveButton} variant='contained' color='primary' onClick={this.handleSubmit}>
+                Save
               </Button>
             </div>
-          </DialogContentText>
         </DialogContent>
       </Dialog>
     )

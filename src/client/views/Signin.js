@@ -1,22 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-import { Link, withRouter } from 'react-router-dom';
-import withStyles from '@material-ui/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-
-const styles = theme => ({
-  container: {
-    maxWidth: 600,
-    flexGrow: 1,
-    textAlign: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center'
-  },
-  bottomMargin: {
-    marginBottom: theme.spacing(2)
-=======
 import PropTypes from 'prop-types';
 import { withStyles, Grid } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
@@ -69,7 +51,6 @@ const styles = theme => ({
     [theme.breakpoints.down('md')]: {
       justifyContent: 'center'
     }
->>>>>>> 558ca875c5a642234a7e6eca2df0fe8675c48b9c
   }
 });
 

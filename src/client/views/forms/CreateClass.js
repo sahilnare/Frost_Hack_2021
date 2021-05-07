@@ -98,6 +98,7 @@ class InstructionDialog extends Component {
                  onChange={this.handleChange}
                  name="semester"
                  label="Semester"
+                 type="number"
                  fullWidth
                  value={this.state.semester} />
                 <TextField id="meetlink"

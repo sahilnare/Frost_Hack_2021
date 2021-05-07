@@ -5,21 +5,8 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import CreateClass from "./forms/CreateClass";
-import Navbar from "./components/Navbar";
-import ClassList from "./components/ClassList";
-// const backgroundShape = require("../images/shape.svg");
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.grey["100"],
-    overflow: "hidden",
-    // background: `url(${backgroundShape}) no-repeat`,
-    // backgroundSize: "cover",
-    // backgroundPosition: "0 400px",
-    paddingBottom: 200
-  },
   grid: {
     width: 1200,
     marginTop: 40,
@@ -32,19 +19,10 @@ const styles = theme => ({
     textAlign: "left",
     color: theme.palette.text.secondary
   },
-  topBar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 32
-  },
   actionButtom: {
     textTransform: "uppercase",
     margin: theme.spacing(1),
     width: 152
-  },
-  block: {
-    padding: theme.spacing(2)
   },
   box: {
     marginBottom: 40,
@@ -56,41 +34,21 @@ const styles = theme => ({
   },
 });
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      createClassDialog: false,
-      classList: ['landfasd', 'asldjkasd', 'asjdnadsasd', 'saldkasd']
-    };
-  }
-
-  componentDidMount() {
-
-  }
-
-  openCreateClass = event => {
-    this.setState({ createClassDialog: true });
-  };
-
-  closeCreateClass = event => {
-    this.setState({ createClassDialog: false });
-  };
+class ClassList extends Component {
 
   render() {
-    const { classes } = this.props;
+    const { classes, classList } = this.props;
     return (
-      <React.Fragment>
-
-        <div className={classes.root}>
-          <Grid container justify="center">
-            <Grid
-              spacing={4}
-              alignItems="center"
-              justify="center"
-              container
-              className={classes.grid}
-            >
+      <Grid
+        spacing={4}
+        alignItems="center"
+        justify="center"
+        container
+        className={classes.grid}
+      >
+        {
+          classList.map(classname => {
+            return (
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
@@ -99,7 +57,7 @@ class Main extends Component {
                       color="secondary"
                       gutterBottom
                     >
-                      Create Class
+                      {classname}
                     </Typography>
                     <Typography variant="body1" gutterBottom>
                       Click here to create a new class group
@@ -112,22 +70,17 @@ class Main extends Component {
                       variant="contained"
                       className={classes.actionButtom}
                     >
-                      Create Class
+                      Join Class
                     </Button>
                   </div>
                 </Paper>
               </Grid>
-            </Grid>
-            <ClassList classList={this.state.classList} />
-          </Grid>
-          <CreateClass
-            open={this.state.createClassDialog}
-            onClose={this.closeCreateClass}
-          />
-        </div>
-      </React.Fragment>
-    );
+            )
+          })
+        }
+      </Grid>
+    )
   }
 }
 
-export default withRouter(withStyles(styles)(Main));
+export default withRouter(withStyles(styles)(ClassList));

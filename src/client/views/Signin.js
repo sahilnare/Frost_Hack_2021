@@ -24,7 +24,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(https://source.unsplash.com/featured/?cinema)',
+    backgroundImage: 'url(https://images.unsplash.com/photo-1509062522246-3755977927d7)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -77,7 +77,7 @@ class Signin extends Component {
               </IconButton>
             </div>
             <div className={classes.contentBody}>
-              <LoginForm redirect />
+              <LoginForm />
             </div>
           </Grid>
         </Grid>

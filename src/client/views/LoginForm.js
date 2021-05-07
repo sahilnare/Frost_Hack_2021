@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/styles';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/styles';
+import { withRouter } from 'react-router-dom';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   form: {
     paddingLeft: '100px',
     paddingRight: '100px',
@@ -65,104 +64,85 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2)
   }
-}));
+});
 
-function LoginForm(props) {
-  const { facebookLogin, googleLogin, isAuthenticated, user, redirect } = props;
-  const classes = useStyles();
-  const [values, setValues] = useState({ username: '', password: '' });
+class LoginForm extends Component {
 
-  useEffect(() => {
-    if (isAuthenticated && redirect) {
-      if (user && user.role === 'superadmin')
-        return history.push('/admin/dashboard');
-      return history.push('/');
-    }
-  }, [isAuthenticated, user, redirect]);
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      role: ''
+    };
+  }
 
-  const handleFieldChange = e =>
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value
-    });
+  handleFieldChange = e => {
+    this.setState({[e.target.name]: e.target.value});
+  }
 
-  return (
-    <form className={classes.form}>
-      <Typography className={classes.title} variant="h2">
-        Sign in
-      </Typography>
+  googleLogin = (response) => {
 
-      <div className={classes.socialLogin}>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-          onSuccess={googleLogin}
-          onFailure={googleLogin}
-          cookiePolicy={'single_host_origin'}
-          render={renderProps => (
-            <Button
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-              fullWidth
-              variant="contained"
-              style={{
-                borderRadius: 0,
-                background: '#fff',
-                color: '#de5246',
-                marginBottom: 10,
-                height: 60,
-                fontSize: 'calc(.27548vw + 12.71074px)',
-                fontWeight: 700
-              }}>
-              Login With Google
-            </Button>
-          )}
-        />
-        <FacebookLogin
-          buttonStyle={{ width: '100%', height: 60 }}
-          appId={process.env.REACT_APP_FACEBOOK_APP_ID} //APP ID NOT CREATED YET
-          fields="name,email,picture"
-          callback={facebookLogin}
-        />
-      </div>
+    console.log(response.profileObj);
+  }
 
-      <div className={classes.fields}>
-        <TextField
-          className={classes.textField}
-          label="username"
-          name="username"
-          onChange={event => handleFieldChange(event)}
-          type="text"
-          value={values.username}
-          variant="outlined"
-        />
-        <TextField
-          className={classes.textField}
-          label="Password"
-          name="password"
-          onChange={event => handleFieldChange(event)}
-          type="password"
-          value={values.password}
-          variant="outlined"
-        />
-      </div>
+  render() {
+    const { classes } = this.props;
+    return (
+      <form className={classes.form}>
+        <Typography className={classes.title} variant="h2">
+          Sign in
+        </Typography>
+        <div className={classes.fields}>
+          <TextField
+            className={classes.textField}
+            label="Name"
+            name="name"
+            onChange={event => this.handleFieldChange(event)}
+            type="text"
+            value={this.state.name}
+            variant="outlined"
+          />
+          <TextField
+            className={classes.textField}
+            label="Role"
+            name="role"
+            onChange={event => this.handleFieldChange(event)}
+            type="text"
+            value={this.state.role}
+            variant="outlined"
+          />
+        </div>
 
-      <Button
-        className={classes.loginButton}
-        color="primary"
-        onClick={() => console.log('Working!')}
-        size="large"
-        variant="contained">
-        Login now
-      </Button>
-      <Typography className={classes.register} variant="body1">
-        Don't have an account?
-        <Link className={classes.registerUrl} to="/register">
-          register
-        </Link>
-      </Typography>
-    </form>
-  );
+        <div className={classes.socialLogin}>
+          <GoogleLogin
+            clientId={"570424297412-pqm9jfn34blq2omv5m0baf7vpr6jmin0.apps.googleusercontent.com"}
+            onSuccess={this.googleLogin}
+            onFailure={this.googleLogin}
+            cookiePolicy={'single_host_origin'}
+            render={renderProps => (
+              <Button
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                fullWidth
+                variant="contained"
+                style={{
+                  borderRadius: 0,
+                  background: '#fff',
+                  color: '#de5246',
+                  marginBottom: 10,
+                  height: 60,
+                  fontSize: 'calc(.27548vw + 12.71074px)',
+                  fontWeight: 700
+                }}>
+                Login With Google
+              </Button>
+            )}
+          />
+        </div>
+      </form>
+    );
+  }
 }
 
 
-export default LoginForm
+export default withRouter(withStyles(styles)(LoginForm));

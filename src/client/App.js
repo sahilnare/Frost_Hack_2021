@@ -11,7 +11,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: true
+      isAuthenticated: false,
+      userData: {
+        role: null,
+        name: null,
+        email: null
+      }
     };
   }
 
@@ -29,9 +34,19 @@ class App extends Component {
       }
     }).then(res => {
       console.log(res);
-
+      // this.setState(prevState => {
+      //   ...prevState,
+      //   isAuthenticated: true,
+      //   userData: {
+      //     ...prevState.userData,
+      //     role: res.data.role,
+      //     name: res.data.name,
+      //     email: res.data.email
+      //   }
+      // });
     }).catch(err => {
       console.log(err);
+      // this.setState({isAuthenticated: false});
     });
   }
 

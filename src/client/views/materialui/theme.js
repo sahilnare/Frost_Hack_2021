@@ -16,7 +16,7 @@ const theme = createMuiTheme({
     },
     // SECONDARY COLOR
     secondary: {
-      main: '#FFD4D9',
+      main: '#5928E5',
     },
     success: {
       main: '#4caf50'

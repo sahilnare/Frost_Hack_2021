@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Importing App Routes
 import Dashboard from './views/Dashboard';
 import Signin from './views/layouts/auth/Signin';
+import axios from 'axios';
 
 class App extends Component {
 
@@ -19,7 +20,19 @@ class App extends Component {
   }
 
   isLoggedIn = () => {
+    // Get token from local storage
+    const token = localStorage.hola_token;
+    axios.get('/api/auth/verify', {
+      headers: {
+        "Content-Type": "application/json",
+        token: token
+      }
+    }).then(res => {
+      console.log(res);
 
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {

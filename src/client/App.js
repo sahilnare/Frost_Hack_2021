@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Importing App Routes
 import Dashboard from './views/Dashboard';
-import Signin from './views/layouts/auth/Signin';
+import Signin from './views/Signin';
 import axios from 'axios';
 
 class App extends Component {

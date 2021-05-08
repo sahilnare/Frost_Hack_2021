@@ -70,31 +70,35 @@ class Main extends Component {
 
   componentDidMount() {
     const {userData} = this.props;
-    const token = localStorage.frost_token;
     if(userData.role === "student") {
-      axios.get('/api/class/getAllClasses', {
-        headers: {
-          "Content-Type": "application/json",
-          token: token
-        }
-      }).then(res => {
-        this.setState({classList: res.data.classes});
-      }).catch(err => {
-        console.log(err);
-      });
+      setTimeout(() => {
+        const token = localStorage.frost_token;
+        axios.get('/api/class/getAllClasses', {
+          headers: {
+            "Content-Type": "application/json",
+            token: token
+          }
+        }).then(res => {
+          this.setState({classList: res.data.classes});
+        }).catch(err => {
+          console.log(err);
+        });
+      }, 1000);
     }
     else if(userData.role === "teacher") {
-      axios.post('/api/class/getMyClasses', {teacher: userData.id}, {
-        headers: {
-          "Content-Type": "application/json",
-          token: token
-        }
-      }).then(res => {
-        console.log("my classes");
-        this.setState({classList: res.data.classes});
-      }).catch(err => {
-        console.log(err);
-      });
+      setTimeout(() => {
+        const token = localStorage.frost_token;
+        axios.post('/api/class/getMyClasses', {teacher: userData.id}, {
+          headers: {
+            "Content-Type": "application/json",
+            token: token
+          }
+        }).then(res => {
+          this.setState({classList: res.data.classes});
+        }).catch(err => {
+          console.log(err);
+        });
+      }, 1000);
     }
 
   }

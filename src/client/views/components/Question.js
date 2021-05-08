@@ -30,6 +30,9 @@ const styles = theme => ({
   form: {
     marginBottom: '25px',
     padding: '0 30px'
+  },
+  correct: {
+    marginTop: '15px'
   }
 });
 
@@ -54,28 +57,33 @@ class Question extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
-    const {question, option1, option2, option3, option4} = this.state;
-    axios.post('/api/class/createClass', {
-      question,
+
+    const {question, option1, option2, option3, option4, correctAnswer} = this.state;
+    const {classId, meetlink} = this.props;
+
+    const token = localStorage.frost_token;
+    axios.post('/api/class/createQuestion', {
+      title: question,
       option1,
       option2,
       option3,
       option4,
-      teacher: this.props.userData.id
+      answer: correctAnswer,
+      classId,
+      meetlink
     }, {
       headers: {
         "Content-Type": "application/json",
+        token: token
       }
     }).then(res => {
-      console.log(res.data);
-      // this.props.updateClass(res.data.classData);
+      this.props.updateQues(res.data.question);
     }).catch(err => {
       console.log(err);
     });
   }
 
-handleRadio = e => {
+  handleRadio = e => {
     this.setState({correctAnswer: e.target.value});
   }
 
@@ -122,13 +130,14 @@ handleRadio = e => {
                  label="Option 4"
                  fullWidth
                  value={this.state.option4} />
-                  <FormLabel component="legend" className={classes.role}>Correct Answer:</FormLabel>
+
+               <FormLabel component="legend" className={classes.correct}>Correct Answer:</FormLabel>
                  <RadioGroup aria-label="role" name="role" value={this.state.correctAnswer} onChange={this.handleRadio}>
-                <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-             <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-             <FormControlLabel value="option3" control={<Radio />} label="Option 3" />
-             <FormControlLabel value="option4" control={<Radio />} label="Option 4" />
-            </RadioGroup>
+                   <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
+                   <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
+                   <FormControlLabel value="option3" control={<Radio />} label="Option 3" />
+                   <FormControlLabel value="option4" control={<Radio />} label="Option 4" />
+                 </RadioGroup>
               </form>
               <Button className={classes.saveButton} variant='contained' color='primary' onClick={this.handleSubmit}>
                 Save

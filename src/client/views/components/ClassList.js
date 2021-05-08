@@ -59,12 +59,12 @@ class ClassList extends Component {
                       {class1.name}
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                      Click here to create a new class group
+                      {class1.description}
                     </Typography>
                   </div>
                   <div className={classes.alignRight}>
                     <Button
-                      onClick={this.openCreateClass}
+                      onClick={() => this.props.history.push('/class/' + class1._id)}
                       color="primary"
                       variant="contained"
                       className={classes.actionButtom}

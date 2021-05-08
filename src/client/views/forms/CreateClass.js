@@ -64,6 +64,12 @@ class InstructionDialog extends Component {
       }
     }).then(res => {
       this.props.updateClass(res.data.classData);
+      this.setState({
+        name: '',
+        description: '',
+        semester: '',
+        meetlink: ''
+      });
     }).catch(err => {
       console.log(err);
     });

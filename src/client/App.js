@@ -4,8 +4,9 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 // Importing App Routes
 import Dashboard from './views/Dashboard';
 import Signin from './views/Signin';
-import axios from 'axios';
 import Class from "./views/Class"
+import axios from 'axios';
+
 
 class App extends Component {
 
@@ -100,9 +101,9 @@ class App extends Component {
                 render={(props) => !isAuthenticated ? <Signin logInFunc={this.logInFunc} {...props} /> : <Redirect to="/" />}
               />
               <Route
-                path='/class'
+                path='/class/:classId'
                 exact
-                render={(props) => isAuthenticated ? <Class {...props} /> : <Redirect to="/signin" />}
+                render={(props) => isAuthenticated ? <Class userData={this.state.userData} logOutFunc={this.logOutFunc} {...props} /> : <Redirect to="/signin" />}
               />
               <Route
                 render={(props) => <NotFound {...props} />}

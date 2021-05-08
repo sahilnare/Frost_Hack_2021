@@ -43,35 +43,29 @@ class InstructionDialog extends Component {
   handleChange = (e) => {
     e.preventDefault();
     const { value, name } = e.target;
-    switch(name) {
-        case "name":
-        {
-          this.setState({name: value});
-          break;
-        }
-        case "description":
-        {
-          this.setState({description: value});
-          break;
-        }
-        case "semester":
-        {
-          this.setState({semester: value});
-          break;
-        }
-        case "meetlink":
-        {
-          this.setState({meetlink: value});
-          break;
-        }
-        default:
-          break;
-    }
+    this.setState({[name]: value});
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
+    const {meetlink, name, description, semester} = this.state;
+    axios.post('/api/class/createClass', {
+      meetlink,
+      name,
+      description,
+      semester,
+      teacher: this.props.userData.id
+    }, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }).then(res => {
+      console.log(res.data);
+      // this.props.updateClass(res.data.classData);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {

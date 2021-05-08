@@ -47,17 +47,16 @@ class ClassList extends Component {
         className={classes.grid}
       >
         {
-          classList.map(classname => {
+          classList.length > 0 ? classList.map(class1 => {
             return (
               <Grid item xs={12} md={4}>
                 <Paper className={classes.paper}>
                   <div className={classes.box}>
                     <Typography
-                      style={{ textTransform: "uppercase" }}
-                      color="secondary"
+                      style={{ textTransform: "uppercase", color: '#000' }}
                       gutterBottom
                     >
-                      {classname}
+                      {class1.name}
                     </Typography>
                     <Typography variant="body1" gutterBottom>
                       Click here to create a new class group
@@ -76,7 +75,7 @@ class ClassList extends Component {
                 </Paper>
               </Grid>
             )
-          })
+          }) : null
         }
       </Grid>
     )

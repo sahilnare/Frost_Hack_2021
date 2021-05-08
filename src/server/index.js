@@ -49,7 +49,9 @@ io.on('connection', socket => {
 
 // Routes
 const authRouter = require('./routes/auth.js');
+const classRouter = require('./routes/class.js');
 app.use('/api/auth', authRouter);
+app.use('/api/class', classRouter);
 
 // Client routes
 app.use(express.static(path.join("dist")));

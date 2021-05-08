@@ -60,7 +60,8 @@ class LoginForm extends Component {
   }
 
   googleLogin = (response) => {
-
+    const {profileObj} = response;
+    console.log(profileObj);
     this.props.signInAction({name: profileObj.name, role: this.state.role, email: profileObj.email})
   }
 

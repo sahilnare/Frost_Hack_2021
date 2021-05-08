@@ -17,7 +17,7 @@ router.post('/googlelogin', validation, async (req, res) => {
 
     const { name, role, email } = req.body;
 
-    let user;
+    let user, newUser;
 
     if(role === "teacher") {
       user = await Teacher.find({ email: email }).exec();
@@ -25,10 +25,10 @@ router.post('/googlelogin', validation, async (req, res) => {
         // Creating the user
         const user = new Teacher({name, email, role});
 
-        const newUser = await user.save();
+        newUser = await user.save();
       }
       else {
-        const newUser = user[0];
+        newUser = user[0];
       }
 
     }
@@ -38,10 +38,10 @@ router.post('/googlelogin', validation, async (req, res) => {
         // Creating the user
         const user = new Student({name, email, role});
 
-        const newUser = await user.save();
+        newUser = await user.save();
       }
       else {
-        const newUser = user[0];
+        newUser = user[0];
       }
     }
 
@@ -84,6 +84,5 @@ router.get("/verify", verification, async (req, res) => {
     res.status(500).json("Server error");
   }
 });
-
 
 module.exports = router;

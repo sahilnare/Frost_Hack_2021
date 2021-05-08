@@ -23,7 +23,7 @@ router.post('/createClass', verification, async (req, res) => {
 
     // Send back the user and token as response
     res.json({
-      class: newClass
+      classData: newClass
     });
 
   } catch (err) {
@@ -84,3 +84,5 @@ router.post('/addStudent', verification, async (req, res) => {
     res.status(500).json("Server error");
   }
 });
+
+module.exports = router;

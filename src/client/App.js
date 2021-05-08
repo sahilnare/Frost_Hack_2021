@@ -15,7 +15,8 @@ class App extends Component {
       userData: {
         role: null,
         name: null,
-        email: null
+        email: null,
+        id: null
       }
     };
   }
@@ -26,26 +27,26 @@ class App extends Component {
 
   isLoggedIn = () => {
     // Get token from local storage
-    const token = localStorage.hola_token;
+    const token = localStorage.frost_token;
     axios.get('/api/auth/verify', {
       headers: {
         "Content-Type": "application/json",
         token: token
       }
     }).then(res => {
-      console.log(res);
-      // this.setState(prevState => {
-      //   return {
-      //     ...prevState,
-      //     isAuthenticated: true,
-      //     userData: {
-      //       ...prevState.userData,
-      //       role: res.data.role,
-      //       name: res.data.name,
-      //       email: res.data.email
-      //     }
-      //   }
-      // });
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          isAuthenticated: true,
+          userData: {
+            ...prevState.userData,
+            role: res.data.cred.user.role,
+            name: res.data.cred.user.name,
+            email: res.data.cred.user.email,
+            id: res.data.cred.user._id
+          }
+        }
+      });
     }).catch(err => {
       console.log(err);
       // this.setState({isAuthenticated: false});
@@ -61,7 +62,8 @@ class App extends Component {
           ...prevState.userData,
           role: data.role,
           name: data.name,
-          email: data.email
+          email: data.email,
+          id: data._id
         }
       }
     });

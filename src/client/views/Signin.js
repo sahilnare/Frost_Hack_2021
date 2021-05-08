@@ -16,7 +16,8 @@ const styles = theme => ({
     height: '100%'
   },
   heading: {
-    fontSize: '32px'
+    fontSize: '42px',
+    textAlign: 'center'
   },
   bgWrapper: {
     [theme.breakpoints.down('md')]: {
@@ -43,6 +44,7 @@ const styles = theme => ({
   contentHeader: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingTop: theme.spacing(5),
     paddingBototm: theme.spacing(2),
     paddingLeft: theme.spacing(2),
@@ -66,15 +68,14 @@ class Signin extends Component {
   // };
 
   signInAction = (cred) => {
-    console.log(cred);
-    axios.get('/api/auth/googlelogin', {
+    axios.post('/api/auth/googlelogin', cred, {
       headers: {
         "Content-Type": "application/json",
-        token: token
       }
     }).then(res => {
-      console.log(res);
-      // this.props.logInFunc(cred);
+      // console.log(res);
+      this.props.logInFunc(res.data.cred.user);
+      localStorage.setItem("frost_token", res.data.cred.token);
     }).catch(err => {
       console.log(err);
     });

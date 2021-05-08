@@ -14,7 +14,6 @@ import axios from 'axios';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.grey["100"],
     overflow: "hidden",
     // background: `url(${backgroundShape}) no-repeat`,
     // backgroundSize: "cover",
@@ -62,11 +61,38 @@ class Main extends Component {
     super(props);
     this.state = {
       createClassDialog: false,
-      classList: ['landfasd', 'asldjkasd', 'asjdnadsasd', 'saldkasd']
+      classList: []
     };
   }
 
   componentDidMount() {
+    const {userData} = this.props;
+    const token = localStorage.frost_token;
+    if(userData.role === "student") {
+      axios.get('/api/class/getAllClasses', {
+        headers: {
+          "Content-Type": "application/json",
+          token: token
+        }
+      }).then(res => {
+        console.log(res.data);
+        this.setState({classList: res.data.classes});
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+    else if(userData.role === "teacher") {
+      axios.post('/api/class/getMyClasses', {teacher: userData.id}, {
+        headers: {
+          "Content-Type": "application/json",
+          token: token
+        }
+      }).then(res => {
+        console.log(res);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
 
   }
 
@@ -77,6 +103,15 @@ class Main extends Component {
   closeCreateClass = event => {
     this.setState({ createClassDialog: false });
   };
+
+  updateClass = (classData) => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        classList: [...prevState.classList, classData]
+      }
+    })
+  }
 
   render() {
     const { classes } = this.props;
@@ -123,6 +158,7 @@ class Main extends Component {
           </Grid>
           <CreateClass
             userData={this.props.userData}
+            updateClass={this.updateClass}
             open={this.state.createClassDialog}
             onClose={this.closeCreateClass}
           />

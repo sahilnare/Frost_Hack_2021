@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: true,
+      isAuthenticated: false,
       userData: {
         role: null,
         name: null,
@@ -37,7 +37,7 @@ class App extends Component {
       this.setState(prevState => {
         return {
           ...prevState,
-          isAuthenticated: false,
+          isAuthenticated: true,
           userData: {
             ...prevState.userData,
             role: res.data.cred.user.role,
@@ -71,6 +71,7 @@ class App extends Component {
 
   logOutFunc = () => {
     this.setState({isAuthenticated: false});
+    localStorage.removeItem("frost_token");
   }
 
   render() {
@@ -90,7 +91,7 @@ class App extends Component {
               <Route
                 path='/app'
                 exact
-                render={(props) => isAuthenticated ? <Dashboard userData={this.state.userData} {...props} /> : <Redirect to="/signin" />}
+                render={(props) => isAuthenticated ? <Dashboard userData={this.state.userData} logOutFunc={this.logOutFunc} {...props} /> : <Redirect to="/signin" />}
               />
               <Route
                 path='/signin'

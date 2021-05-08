@@ -17,7 +17,7 @@ const styles = theme => ({
     flexBasis: '700px',
     [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
+      paddingRight: theme.spacing(2),
     }
   },
   title: {
@@ -69,12 +69,11 @@ class LoginForm extends Component {
     const { classes } = this.props;
     return (
       <form className={classes.form}>
-        <Typography className={classes.title} variant="h4">
-          Sign in
-        </Typography>
-        <div className={classes.fields}>
+        {/* <Typography className={classes.title} variant="h4">
+        </Typography> */}
+        <div className={classes.fields}  style={{textAlign: "center", marginLeft: "60px"}}>
         <FormLabel component="legend" className={classes.role}>Role:</FormLabel>
-          <RadioGroup aria-label="role" name="role" value={this.state.role} onChange={this.handleRadio}>
+          <RadioGroup aria-label="role" name="role" value={this.state.role} onChange={this.handleRadio} style={{marginLeft: "165px"}}>
             <FormControlLabel value="student" control={<Radio />} label="Student" />
             <FormControlLabel value="teacher" control={<Radio />} label="Teacher" />
           </RadioGroup>
@@ -97,6 +96,7 @@ class LoginForm extends Component {
                   background: '#de5246',
                   color: '#fff',
                   marginBottom: 10,
+                  marginLeft: 50,
                   height: 60,
                   fontSize: 'calc(.27548vw + 12.71074px)',
                   fontWeight: 700

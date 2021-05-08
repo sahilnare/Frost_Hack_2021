@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Navbar from "./components/Navbar"
 
 const styles = theme => ({
   grid: {
@@ -56,6 +57,8 @@ class NotesList extends Component {
 
     const { classes } = this.props;
     return (
+      <div>
+      <Navbar />
       <Grid
         spacing={4}
         alignItems="center"
@@ -95,6 +98,7 @@ class NotesList extends Component {
           }) : null
         }
       </Grid>
+      </div>
     )
   }
 }

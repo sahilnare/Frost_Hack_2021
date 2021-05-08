@@ -91,8 +91,8 @@ class Signin extends Component {
           </Grid>
           <Grid className={classes.content} item lg={7} xs={12}>
             <div className={classes.contentHeader}>
-              <Typography color='primary' className={classes.heading} variant="h2">
-                Frost Hack
+              <Typography color='black' className={classes.heading} variant="h2" style={{marginLeft: "-80px"}}>
+                Sign In
               </Typography>
             </div>
             <div className={classes.contentBody}>

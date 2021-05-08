@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles, Grid } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
 import { ArrowBack as ArrowBackIcon } from '@material-ui/icons';
+import Typography from "@material-ui/core/Typography";
 import LoginForm from './LoginForm';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -12,6 +14,9 @@ const styles = theme => ({
   },
   grid: {
     height: '100%'
+  },
+  heading: {
+    fontSize: '32px'
   },
   bgWrapper: {
     [theme.breakpoints.down('md')]: {
@@ -55,10 +60,25 @@ const styles = theme => ({
 });
 
 class Signin extends Component {
-  handleBack = () => {
-    const { history } = this.props;
-    history.goBack();
-  };
+  // handleBack = () => {
+  //   const { history } = this.props;
+  //   history.goBack();
+  // };
+
+  signInAction = (cred) => {
+    console.log(cred);
+    axios.get('/api/auth/googlelogin', {
+      headers: {
+        "Content-Type": "application/json",
+        token: token
+      }
+    }).then(res => {
+      console.log(res);
+      // this.props.logInFunc(cred);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 
   render() {
     const { classes } = this.props;
@@ -70,14 +90,12 @@ class Signin extends Component {
           </Grid>
           <Grid className={classes.content} item lg={7} xs={12}>
             <div className={classes.contentHeader}>
-              <IconButton
-                className={classes.backButton}
-                onClick={this.handleBack}>
-                <ArrowBackIcon />
-              </IconButton>
+              <Typography color='primary' className={classes.heading} variant="h2">
+                Frost Hack
+              </Typography>
             </div>
             <div className={classes.contentBody}>
-              <LoginForm />
+              <LoginForm signInAction={this.signInAction} />
             </div>
           </Grid>
         </Grid>

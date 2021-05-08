@@ -9,6 +9,7 @@ import CreateClass from "./forms/CreateClass";
 import Navbar from "./components/Navbar";
 import ClassList from "./components/ClassList";
 // const backgroundShape = require("../images/shape.svg");
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -121,6 +122,7 @@ class Main extends Component {
             <ClassList classList={this.state.classList} />
           </Grid>
           <CreateClass
+            userData={this.props.userData}
             open={this.state.createClassDialog}
             onClose={this.closeCreateClass}
           />

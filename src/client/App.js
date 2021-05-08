@@ -35,19 +35,40 @@ class App extends Component {
     }).then(res => {
       console.log(res);
       // this.setState(prevState => {
-      //   ...prevState,
-      //   isAuthenticated: true,
-      //   userData: {
-      //     ...prevState.userData,
-      //     role: res.data.role,
-      //     name: res.data.name,
-      //     email: res.data.email
+      //   return {
+      //     ...prevState,
+      //     isAuthenticated: true,
+      //     userData: {
+      //       ...prevState.userData,
+      //       role: res.data.role,
+      //       name: res.data.name,
+      //       email: res.data.email
+      //     }
       //   }
       // });
     }).catch(err => {
       console.log(err);
       // this.setState({isAuthenticated: false});
     });
+  }
+
+  logInFunc = (data) => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isAuthenticated: true,
+        userData: {
+          ...prevState.userData,
+          role: data.role,
+          name: data.name,
+          email: data.email
+        }
+      }
+    });
+  }
+
+  logOutFunc = () => {
+    this.setState({isAuthenticated: false});
   }
 
   render() {
@@ -67,12 +88,12 @@ class App extends Component {
               <Route
                 path='/app'
                 exact
-                render={(props) => isAuthenticated ? <Dashboard {...props} /> : <Redirect to="/signin" />}
+                render={(props) => isAuthenticated ? <Dashboard userData={this.state.userData} {...props} /> : <Redirect to="/signin" />}
               />
               <Route
                 path='/signin'
                 exact
-                render={(props) => !isAuthenticated ? <Signin {...props} /> : <Redirect to="/" />}
+                render={(props) => !isAuthenticated ? <Signin logInFunc={this.logInFunc} {...props} /> : <Redirect to="/" />}
               />
               <Route
                 render={(props) => <NotFound {...props} />}

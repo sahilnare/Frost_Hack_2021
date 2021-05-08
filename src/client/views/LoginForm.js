@@ -4,6 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({
   form: {
@@ -32,36 +36,7 @@ const styles = theme => ({
       marginTop: theme.spacing(2)
     }
   },
-  progress: {
-    display: 'block',
-    marginTop: theme.spacing(2),
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
-  loginButton: {
-    marginTop: theme.spacing(2),
-    width: '100%'
-  },
-  register: {
-    marginTop: theme.spacing(2),
-    color: theme.palette.text.secondary
-  },
-  registerUrl: {
-    color: theme.palette.primary,
-    fontWeight: 'bold',
-    '&:hover': {
-      color: theme.palette.primary
-    }
-  },
-  fieldError: {
-    color: theme.palette.danger,
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(1)
-  },
-  submitError: {
-    color: theme.palette.danger,
-    alignText: 'center',
-    marginBottom: theme.spacing(1),
+  role: {
     marginTop: theme.spacing(2)
   }
 });
@@ -72,7 +47,7 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       name: '',
-      role: ''
+      role: 'student'
     };
   }
 
@@ -80,37 +55,28 @@ class LoginForm extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
+  handleRadio = e => {
+    this.setState({role: e.target.value});
+  }
+
   googleLogin = (response) => {
 
-    console.log(response.profileObj);
+    this.props.signInAction({name: profileObj.name, role: this.state.role, email: profileObj.email})
   }
 
   render() {
     const { classes } = this.props;
     return (
       <form className={classes.form}>
-        <Typography className={classes.title} variant="h2">
+        <Typography className={classes.title} variant="h4">
           Sign in
         </Typography>
         <div className={classes.fields}>
-          <TextField
-            className={classes.textField}
-            label="Name"
-            name="name"
-            onChange={event => this.handleFieldChange(event)}
-            type="text"
-            value={this.state.name}
-            variant="outlined"
-          />
-          <TextField
-            className={classes.textField}
-            label="Role"
-            name="role"
-            onChange={event => this.handleFieldChange(event)}
-            type="text"
-            value={this.state.role}
-            variant="outlined"
-          />
+        <FormLabel component="legend" className={classes.role}>Role:</FormLabel>
+          <RadioGroup aria-label="role" name="role" value={this.state.role} onChange={this.handleRadio}>
+            <FormControlLabel value="student" control={<Radio />} label="Student" />
+            <FormControlLabel value="teacher" control={<Radio />} label="Teacher" />
+          </RadioGroup>
         </div>
 
         <div className={classes.socialLogin}>
@@ -127,8 +93,8 @@ class LoginForm extends Component {
                 variant="contained"
                 style={{
                   borderRadius: 0,
-                  background: '#fff',
-                  color: '#de5246',
+                  background: '#de5246',
+                  color: '#fff',
                   marginBottom: 10,
                   height: 60,
                   fontSize: 'calc(.27548vw + 12.71074px)',

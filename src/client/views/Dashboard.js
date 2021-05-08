@@ -6,10 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CreateClass from "./forms/CreateClass";
-import Navbar from "./components/Navbar";
 import ClassList from "./components/ClassList";
 // const backgroundShape = require("../images/shape.svg");
 import axios from 'axios';
+import Navbar from './components/Navbar'
 
 const styles = theme => ({
   root: {
@@ -82,7 +82,7 @@ class Main extends Component {
     const { classes } = this.props;
     return (
       <React.Fragment>
-
+        <Navbar />
         <div className={classes.root}>
           <Grid container justify="center">
             <Grid

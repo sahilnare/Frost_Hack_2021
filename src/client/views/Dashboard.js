@@ -54,6 +54,9 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "flex-end"
   },
+  welcome: {
+    padding: '20px 30px'
+  }
 });
 
 class Main extends Component {
@@ -75,7 +78,6 @@ class Main extends Component {
           token: token
         }
       }).then(res => {
-        console.log(res.data);
         this.setState({classList: res.data.classes});
       }).catch(err => {
         console.log(err);
@@ -88,7 +90,8 @@ class Main extends Component {
           token: token
         }
       }).then(res => {
-        console.log(res);
+        console.log("my classes");
+        this.setState({classList: res.data.classes});
       }).catch(err => {
         console.log(err);
       });
@@ -110,50 +113,84 @@ class Main extends Component {
         ...prevState,
         classList: [...prevState.classList, classData]
       }
-    })
+    });
+    this.setState({ createClassDialog: false });
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, userData } = this.props;
+    let welcomeMes;
+    if(userData.role === "teacher") {
+      welcomeMes = (
+        <>
+          <Typography variant="h4" gutterBottom>
+            Welcome {userData.name}
+          </Typography>
+          <Typography variant="body1">
+            You can create and edit your classes here.
+          </Typography>
+        </>
+      );
+    }
+    else if(userData.role === "student") {
+      welcomeMes = (
+        <>
+          <Typography variant="h4" style={{display: 'block'}}>
+            Welcome {userData.name}
+          </Typography>
+          <Typography variant="body1" style={{display: 'block'}}>
+            You can join and enter your classes here.
+          </Typography>
+        </>
+      );
+    }
+
     return (
       <React.Fragment>
-        <Navbar />
+        <Navbar logOutFunc={this.props.logOutFunc} />
         <div className={classes.root}>
+          <Grid className={classes.welcome} direction="column" container justify="center">
+            {welcomeMes}
+          </Grid>
           <Grid container justify="center">
-            <Grid
-              spacing={4}
-              alignItems="center"
-              justify="center"
-              container
-              className={classes.grid}
-            >
-              <Grid item xs={12} md={4}>
-                <Paper className={classes.paper}>
-                  <div className={classes.box}>
-                    <Typography
-                      style={{ textTransform: "uppercase" }}
-                      color="secondary"
-                      gutterBottom
-                    >
-                      Create Class
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                      Click here to create a new class group
-                    </Typography>
-                  </div>
-                  <div className={classes.alignRight}>
-                    <Button
-                      onClick={this.openCreateClass}
-                      color="primary"
-                      variant="contained"
-                      className={classes.actionButtom}
-                    >
-                      Create Class
-                    </Button>
-                  </div>
-                </Paper>
-              </Grid>
-            </Grid>
+            {
+              userData.role === "teacher" ? (
+                <Grid
+                  spacing={4}
+                  alignItems="center"
+                  justify="center"
+                  container
+                  className={classes.grid}
+                >
+                  <Grid item xs={12} md={4}>
+                    <Paper className={classes.paper}>
+                      <div className={classes.box}>
+                        <Typography
+                          style={{ textTransform: "uppercase" }}
+                          color="secondary"
+                          gutterBottom
+                        >
+                          Create Class
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                          Click here to create a new class group
+                        </Typography>
+                      </div>
+                      <div className={classes.alignRight}>
+                        <Button
+                          onClick={this.openCreateClass}
+                          color="primary"
+                          variant="contained"
+                          className={classes.actionButtom}
+                        >
+                          Create Class
+                        </Button>
+                      </div>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              ) : null
+            }
             <ClassList classList={this.state.classList} />
           </Grid>
           <CreateClass

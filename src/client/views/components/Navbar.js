@@ -10,7 +10,7 @@ import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/styles/withStyles";
 
 
-const styles = theme => ({  
+const styles = theme => ({
  root: {
     flexGrow: 1,
   },
@@ -34,9 +34,9 @@ const styles = theme => ({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Frost Hack
           </Typography>
-          <Button color="inherit">Log Out</Button>
+          <Button onClick={this.props.logOutFunc} color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
     </div>

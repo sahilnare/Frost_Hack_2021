@@ -48,7 +48,8 @@ class InstructionDialog extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+
+    const token = localStorage.frost_token;
     const {meetlink, name, description, semester} = this.state;
     axios.post('/api/class/createClass', {
       meetlink,
@@ -59,10 +60,10 @@ class InstructionDialog extends Component {
     }, {
       headers: {
         "Content-Type": "application/json",
+        token: token
       }
     }).then(res => {
-      console.log(res.data);
-      // this.props.updateClass(res.data.classData);
+      this.props.updateClass(res.data.classData);
     }).catch(err => {
       console.log(err);
     });

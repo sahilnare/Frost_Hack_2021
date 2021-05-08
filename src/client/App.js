@@ -37,7 +37,7 @@ class App extends Component {
       this.setState(prevState => {
         return {
           ...prevState,
-          isAuthenticated: true,
+          isAuthenticated: false,
           userData: {
             ...prevState.userData,
             role: res.data.cred.user.role,

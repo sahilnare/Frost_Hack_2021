@@ -30,6 +30,7 @@ from scipy.io.wavfile import write
 import wavio as wv
 import threading
 import pdfkit
+from drive_upload import upload_file
 
 parser = argparse.ArgumentParser()
 
@@ -149,7 +150,7 @@ def take_screenshot():
 # def record_audio():
 #     print("audio recording started!")
 #     freq = 48000 # sampling frequency
-#     duration = 20  # recording duraion
+#     duration = 120  # recording duraion
 
 #     recording = sd.rec(int(duration * freq), samplerate=freq, channels=2)
 
@@ -159,7 +160,7 @@ def take_screenshot():
 #     write("./audio_files/recording001.wav", freq, recording)
 
 #     # Convert the NumPy array to audio file
-#     wv.write("./audio_files/recording002.wav", recording, freq, sampwidth=2)
+#     wv.write("./audio_files/r.wav", recording, freq, sampwidth=2)
 
 def callback(indata, frames, time, status):
     """This is called (from a separate thread) for each audio block."""
@@ -327,7 +328,10 @@ def functions():
     path_wkhtmltopdf = 'C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe'
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
     options = {'enable-local-file-access': None}
-    pdfkit.from_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "doc.html"), os.path.join(os.path.dirname(os.path.abspath(__file__)), "output.pdf"), configuration=config, options=options)
+    pdfkit.from_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "doc.html"), os.path.join(os.path.dirname(os.path.abspath(__file__)), "output_final.pdf"), configuration=config, options=options)
+    time.sleep(5)
+    head = upload_file()
+    print(head)
 
 # main working code
 Glogin(args['email'], args['password'], driver)

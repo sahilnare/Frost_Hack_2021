@@ -1,8 +1,10 @@
 import json
 import requests
 
+#to generate authentication api visit https://developers.google.com/oauthplayground/ then select Drive API v3 then click authorize api(will generate temporary auth api key)
+#then click on generate access token from keys and paste that access token below
 def upload_file():
-    headers = {"Authorization": "Bearer ya29.a0AfH6SMDK2ZNzPy63LO1pagmQr5BLhz2xSzhS6F8Mk_mLSapo3TKfHkVLZduai-o3nS423d2ixO9QVuhy-l9Swed6t0kQa3_uF8ZC84WbLxMF0d7BDci3CAn3E0jmtu2E7sAUN1FTAZS0E17QBhYyPPIRMO5S"}
+    headers = {"Authorization": "Bearer [your google auth2 authentication api]"}
     para = {
         "name": "output_final.pdf",
     }

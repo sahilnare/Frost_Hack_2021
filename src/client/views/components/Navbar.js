@@ -36,6 +36,7 @@ const styles = theme => ({
           <Typography variant="h6" className={classes.title}>
             Frost Hack
           </Typography>
+          <Button onClick={() => this.props.history.push('/notes')} color="inherit">Notes</Button>
           <Button onClick={this.props.logOutFunc} color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>
@@ -44,4 +45,4 @@ const styles = theme => ({
   }
 }
 
-export default withStyles(styles)(ButtonAppBar);
+export default withRouter(withStyles(styles)(ButtonAppBar));

@@ -330,8 +330,8 @@ def functions():
     options = {'enable-local-file-access': None}
     pdfkit.from_file(os.path.join(os.path.dirname(os.path.abspath(__file__)), "doc.html"), os.path.join(os.path.dirname(os.path.abspath(__file__)), "output_final.pdf"), configuration=config, options=options)
     time.sleep(5)
-    head = upload_file()
-    print(head)
+#     head = upload_file()
+#     print(head)
 
 # main working code
 Glogin(args['email'], args['password'], driver)

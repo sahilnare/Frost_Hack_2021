@@ -37,6 +37,7 @@ const styles = theme => ({
             Frost Hack
           </Typography>
           <Button onClick={() => this.props.history.push('/notes')} color="inherit">Notes</Button>
+          <Button onClick={() => this.props.history.push('/record')} color="inherit">Record</Button>
           <Button onClick={this.props.logOutFunc} color="inherit">Log Out</Button>
         </Toolbar>
       </AppBar>

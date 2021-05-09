@@ -6,8 +6,9 @@ import Dashboard from './views/Dashboard';
 import Signin from './views/Signin';
 import Class from "./views/Class"
 import axios from 'axios';
-import Notes from './views/Notes'
-import NotFound from './views/NotFound'
+import Notes from './views/Notes';
+import Record from './views/Record';
+import NotFound from './views/NotFound';
 
 
 class App extends Component {
@@ -111,6 +112,11 @@ class App extends Component {
                 path='/notes'
                 exact
                 render={(props) => isAuthenticated ? <Notes {...props} /> : <Redirect to="/signin" />}
+              />
+              <Route
+                path='/record'
+                exact
+                render={(props) => isAuthenticated ? <Record {...props} /> : <Redirect to="/signin" />}
               />
               <Route
                 render={(props) => <NotFound {...props} />}

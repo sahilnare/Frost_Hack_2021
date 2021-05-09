@@ -37,7 +37,7 @@ const styles = theme => ({
 
 
 function openpdf() {
-    window.open('https://stackoverflow.com/questions/15944245/how-to-open-pdf-on-a-new-tab');
+    window.open('https://drive.google.com/file/d/1VUW2VZ6Q42VLV69V7bGuPF98z2zGisvj/view');
 }
 
 class NotesList extends Component {

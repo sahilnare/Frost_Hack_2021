@@ -20,6 +20,7 @@ function answerQues(answer) {
   //   question: question,
   //   meetlink: document.URL
   // });
+  document.querySelector('#injectedS').style.display = "none";
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -88,6 +89,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       injected.style.flexDirection = 'column';
       injected.style.alignItems = 'center';
       injected.style.justifyContent = 'center';
+      document.querySelector('#injectedS').style.display = "block";
 
       var quesEle = document.querySelector('#questionLabelS');
       quesEle.style.fontSize = '18px';

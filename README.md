@@ -15,18 +15,18 @@ Students get distracted very easily. Students enter the class and don’t give a
 
 ## Solution
 We have 3 parts for our solution:
-Web Application 
+Web Application
 Chrome Extension
 Notes Taking Bot
 
 We have implemented mainly two features:
-1. One for students to free them from the hassle of making notes by creating a bot that will enter the online lecture on platforms like Google Meet. It will automatically take screenshots of the screen shared by the teacher and 
-convert whole audio into text. 
-We will then process this text and make a short summary of what the teacher taught, and save it in form of editable doc file or pdf, which will show picture of slide and summary of what teacher taught below that, which will be shown on our web app where students can store it there, edit it and share it with their friends. 
+1. One for students to free them from the hassle of making notes by creating a bot that will enter the online lecture on platforms like Google Meet. It will automatically take screenshots of the screen shared by the teacher and
+convert whole audio into text.
+We will then process this text and make a short summary of what the teacher taught, and save it in form of editable doc file or pdf, which will show picture of slide and summary of what teacher taught below that, which will be shown on our web app where students can store it there, edit it and share it with their friends.
 
 
 2. Another feature is for teachers, using which they can check for the attentiveness of students during the lecture.
-They will create a class and generate a meet link for the students on our web app. 
+They will create a class and generate a meet link for the students on our web app.
 We have created a chrome extension using which the teacher can pop a question anytime during a live lecture which will be shown on the students screen and a student has to answer the question in the given time frame and the result of which will be shown on the teacher’s dashboard on our web app.
 
 
@@ -49,3 +49,34 @@ We have created a chrome extension using which the teacher can pop a question an
   <li> Using the timestamps of previous point, bot will divide the whole recorded audio in smaller chunks and pass it through ibm_watson speech to text api to generate text file from it </li>
   <li> From this generated text files, summary will be generated using the function generate_summary in summary.py file </li>
   <li> using the captured screenshots and summary file, bot will create one html doc (for formatting and image storing purpose) and using wkhtmltopdf configuration with pdfkit bot will convert it into pdf "output_final.pdf", which will be stored locally and on google drive.</li>
+</ul>
+
+
+## Instructions to run the web app
+
+```bash
+# Clone the repository
+git clone https://github.com/sahilnare/Frost_Hack_2021.git
+
+# Go inside the directory
+cd Frost_Hack_2021
+
+# Install dependencies
+yarn
+
+# Start development server
+yarn dev
+
+# Build for production
+yarn build
+
+# Start production server
+yarn start
+```
+
+## Instructions to run the chrome extension
+
+<ul>
+  <li> Open Chrome browser and go to chrome://extensions </li>
+  <li> Click on 'Load unpacked' and select the 'extension' folder. Make sure to enable the developer mode </li>
+</ul>

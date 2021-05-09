@@ -1,0 +1,16 @@
+pyautogui
+pydub
+selenium
+opencv-python
+scipy
+sounddevice
+speechRecognition
+ibm_watson
+argparse
+wavio
+pdfkit
+numpy
+pillow
+scikit-image
+nltk
+networkx

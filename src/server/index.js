@@ -31,9 +31,18 @@ let onlineUsers = [];
 io.on('connection', socket => {
 
     // Add user to the onlineUsers array
-    socket.on("user online", (username) => {
-      onlineUsers.push({username, socketId: socket.id});
+    socket.on("join room", (meetId, email) => {
+      // console.log(meetId);
+      onlineUsers.push({email: email, meetId: meetId, socketId: socket.id});
+
+      socket.join(meetId);
+      console.log("onlineUsers");
       console.table(onlineUsers);
+    });
+
+    socket.on("broadcast ques", (question, meetId) => {
+      console.log(question, meetId);
+      socket.to(meetId).emit("come ques", question);
     });
 
     // Handling disconnect event

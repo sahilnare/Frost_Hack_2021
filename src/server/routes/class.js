@@ -6,6 +6,7 @@ const verification = require('../middleware/verification');
 let Class = require('../models/class.model');
 let Question = require('../models/questions.model');
 let Teacher = require('../models/teachers.model');
+let Student = require('../models/students.model');
 
 router.post('/createClass', verification, async (req, res) => {
   try {
@@ -143,6 +144,49 @@ router.post('/addStudent', verification, async (req, res) => {
     // Send back the user and token as response
     res.json({
       updated: true
+    });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
+router.post("/getRole", async (req, res) => {
+  try {
+    const {email} = req.body;
+
+    let user;
+
+    user = await Teacher.find({ email: email }, 'name role').exec();
+    if(user.length === 0) {
+      user = await Student.find({ email: email }, 'name role').exec();
+      res.json({
+        name: user[0].name,
+        role: user[0].role
+      });
+    }
+    else {
+      res.json({
+        name: user[0].name,
+        role: user[0].role
+      });
+    }
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server error");
+  }
+});
+
+router.post("/getMeetQuestions", async (req, res) => {
+  try {
+    const {meetlink} = req.body;
+    // Get the user profile from database using the user id
+    const ques = await Question.find({meetlink: meetlink}, 'title option1 option2 option3 option4 answer').exec();
+
+    res.json({
+      questions: ques
     });
 
   } catch (err) {
